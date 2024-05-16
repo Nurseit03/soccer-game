@@ -11,7 +11,7 @@ const App = () => {
   const goalRef = useRef(null);
 
   const handlePositionReset = () => {
-    controls.start({ x: 0, y: 0 });
+    controls.start({ x: 0, y: 0, transition: {duration: 0} });
   };
 
   useEffect(() => {
