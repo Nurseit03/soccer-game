@@ -7,24 +7,14 @@ const App = () => {
   const controls = useAnimation();
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const [velocity, setVelocity] = useState({ x: 0, y: 0 });
+  const [goalsScore, setGoalsScore] = useState(0);
   const goalRef = useRef(null);
 
-  useEffect(() => {
-    const handleDragEnd = (_, info) => {
-      setVelocity(info.velocity);
-      controls.start({
-        x: x.get() + info.velocity.x * 0.5,
-        y: y.get() + info.velocity.y * 0.5,
-        transition: {
-          type: 'inertia',
-          velocity: { x: info.velocity.x, y: info.velocity.y },
-          bounceStiffness: 300,
-          bounceDamping: 20,
-        },
-      });
-    };
+  const handlePositionReset = () => {
+    controls.start({ x: 0, y: 0 });
+  };
 
+  useEffect(() => {
     controls.start({
       x: x.get(),
       y: y.get(),
@@ -45,6 +35,8 @@ const App = () => {
         ballRect.top < goalRect.bottom
       ) {
         console.log('WIN');
+        setGoalsScore((prev) => prev + 1);
+        handlePositionReset();
       }
     };
 
@@ -52,34 +44,26 @@ const App = () => {
     return () => clearInterval(intervalId);
   }, [controls, x, y]);
 
-
-  const handleDragEnd = (_, info) => {
-    controls.start({
-      x: x.get() + info.velocity.x * 0.5,
-      y: y.get() + info.velocity.y * 0.5,
-      transition: {
-        type: 'inertia',
-        velocity: { x: info.velocity.x, y: info.velocity.y },
-        bounceStiffness: 300,
-        bounceDamping: 20,
-      },
-    });
-  };
-
-  
   return (
-    <div className="game">
+    <>
+        <div className="game">
       <motion.div
         className="ball"
         ref={ballRef}
         drag
-        dragConstraints={{ left: 0, right: 300, top: 0, bottom: 300 }}
-        onDragEnd={handleDragEnd}
+        dragConstraints={{ left: -300, right: 600, top: -300, bottom: 300 }}
         style={{ x, y }}
         animate={controls}
       />
-      <div className="goal" ref={goalRef}></div>
+      <div className="goal" ref={goalRef}>
+        Ворота
+      </div>
     </div>
+    <div style={{position: "absolute", bottom: "15px", right: "50%"}}>
+      Голов: {goalsScore}
+    </div>
+    </>
+
   );
 };
 
