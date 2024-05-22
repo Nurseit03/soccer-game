@@ -23,11 +23,11 @@ body {
 }
 
 .goal {
-  width: 200px;
-  height: 100px;
+  width: 10px;
+  height: 180px;
   background-color: #5cb85c;
   position: absolute;
-  right: 10%;
+  left: 90%;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translate(-50%, -50%);
 }
