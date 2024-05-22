@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/soccer-game/static/css/main.e4d518e2.css",
+    "main.js": "/soccer-game/static/js/main.99372631.js",
+    "index.html": "/soccer-game/index.html",
+    "main.e4d518e2.css.map": "/soccer-game/static/css/main.e4d518e2.css.map",
+    "main.99372631.js.map": "/soccer-game/static/js/main.99372631.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e4d518e2.css",
+    "static/js/main.99372631.js"
+  ]
+}
