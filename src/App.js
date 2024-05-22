@@ -1,6 +1,36 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, useMotionValue, useAnimation } from 'framer-motion';
-import './App.css';
+import { Box, Typography } from '@mui/material';
+import { styled } from '@mui/system';
+
+const GameContainer = styled(Box)({
+  position: 'relative',
+  width: '100vw',
+  height: '100vh',
+  backgroundColor: '#dff3e3',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
+
+const Ball = styled(motion.div)({
+  width: 50,
+  height: 50,
+  backgroundColor: '#f0ad4e',
+  borderRadius: '50%',
+  position: 'absolute',
+  cursor: 'grab',
+});
+
+const Goal = styled(Box)({
+  width: 10,
+  height: 180,
+  backgroundColor: '#5cb85c',
+  position: 'absolute',
+  left: '90%',
+  top: '50%',
+  transform: 'translate(-50%, -50%)',
+});
 
 const App = () => {
   const ballRef = useRef(null);
@@ -64,23 +94,21 @@ const App = () => {
   }, [controls, x, y]);
 
   return (
-    <div className="container">
-      <div className="game">
-        <motion.div
-          className="ball"
+    <Box position="relative">
+      <GameContainer>
+        <Ball
           ref={ballRef}
           drag
           dragConstraints={constraints}
           style={{ x, y }}
           animate={controls}
         />
-        <div className="goal" ref={goalRef}>
-        </div>
-      </div>
-      <div style={{ position: "absolute", bottom: "15px", right: "50%" }}>
-        Голов: {goalsScore}
-      </div>
-    </div>
+        <Goal ref={goalRef} />
+      </GameContainer>
+      <Box position="absolute" bottom="15px" right="50%">
+        <Typography variant="h6">Голов: {goalsScore}</Typography>
+      </Box>
+    </Box>
   );
 };
 
